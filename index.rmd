@@ -55,15 +55,15 @@ text(0,0, expression(pi),cex=8,adj=c(.52,.52),col=piColors[1])
 
 ## About the Visualization
 
-This visualization of \pi does not demonstrate any deep principles about pi.  Pi
+This visualization of pi does not demonstrate any deep principles about pi.  Pi
 is an irrational numbeer, the ratio of a circle's radius to it's perimeter. The 
 digits of pi form an apparently random sequence of numbers. However, despite 
-it's random apparently nature it fundamentally orders many equations in mathematics.
+it's random apparently nature it is fundamental to many equations in mathematics.
 
-This visualization takes the fractional portion of pi and arranges them in sequence
-around a circles, mapping each digit to its position modulo 360 in the sequence.
+This visualization takes the fractional portion of pi and arranges the digits in sequence
+around a circle, mapping each digit to its position modulo 360 in the sequence.
 The whole number quotient of the modular division is used as a scaling factor 
-for each sequence of 360 digits.  Each digit is mapped to a different color.  The
+for each digit, and each digit is mapped to a different color.  The
 first 10,000 digits of pi's fractional portion are plotted.
 
 The visualization uses the the _plotrix_ R library for plotting, and the 
