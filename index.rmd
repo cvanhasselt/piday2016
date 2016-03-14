@@ -5,32 +5,14 @@ date: "March 14, 2016"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+```{r setup, echo=FALSE}
 
 # load libraries
 library(plotrix)
 library(RColorBrewer)
 ```
 
-## About the Visualization
-
-This visualization of \pi does not demonstrate any deep principles about pi.  Pi
-is an irrational numbeer, the ratio of a circle's radius to it's perimeter. The 
-digits of pi form an apparently random sequence of numbers. However, despite 
-it's random apparently nature it fundamentally orders many equations in mathematics.
-
-This visualization takes the fractional portion of pi and arranges them in sequence
-around a circles, mapping each digit to its position modulo 360 in the sequence.
-The whole number quotient of the modular division is used as a scaling factor 
-for each sequence of 360 digits.  Each digit is mapped to a different color.  The
-first 10,000 digits of pi's fractional portion are plotted.
-
-The visualization uses the the _plotrix_ R library for plotting, and the 
-_RColorBrewer_ library for mapping colors.
-
-
-```{r loadData}
+```{r loadData,echo=FALSE}
 # Grab raw digits from file (first 10K digits of fractional pi)
 rawPiDigits <- readLines("PI10K_DP.txt")
 
@@ -53,22 +35,50 @@ piDigits$q <- sapply(piDigits$idx,FUN=function(x){
 # normalize by the maximum rotation of degrees
 norm <- max(piDigits$q)
 
-# create color mapping function and map colors
-piColorFunc <- colorRampPalette(brewer.pal(10,"Spectral"))
+# create color mapping function and map 10 colors
+piColorFunc <- colorRampPalette(brewer.pal(10,"Paired"))
 piColors <- piColorFunc(10)
 
 
 ```
 
-## Plot
 
-Behold!  
-
-```{r plotting, echo=FALSE, fig.width=8, fig.height=8 }
+```{r plotting, echo=FALSE, fig.width=8, fig.height=8, fig.align='center'}
 # create plot, add text
-polar.plot((piDigits$digit * piDigits$q)/norm,piDigits$degs,show.grid=FALSE,line.col=piColors[piDigits$digit + 1],lwd=.5,do.first=plot_bg(col="black"))
+polar.plot((piDigits$digit * piDigits$q)/norm,piDigits$degs,
+           show.grid=FALSE,
+           line.col=piColors[piDigits$digit + 1],
+           lwd=.5,do.first=plot_bg(col="black"))
 text(0,0, expression(pi),cex=8,adj=.5,col='black')
 text(0,0, expression(pi),cex=8,adj=c(.52,.52),col=piColors[1])
 ```
+
+## About the Visualization
+
+This visualization of \pi does not demonstrate any deep principles about pi.  Pi
+is an irrational numbeer, the ratio of a circle's radius to it's perimeter. The 
+digits of pi form an apparently random sequence of numbers. However, despite 
+it's random apparently nature it fundamentally orders many equations in mathematics.
+
+This visualization takes the fractional portion of pi and arranges them in sequence
+around a circles, mapping each digit to its position modulo 360 in the sequence.
+The whole number quotient of the modular division is used as a scaling factor 
+for each sequence of 360 digits.  Each digit is mapped to a different color.  The
+first 10,000 digits of pi's fractional portion are plotted.
+
+The visualization uses the the _plotrix_ R library for plotting, and the 
+_RColorBrewer_ library for mapping colors.  The code for data manipulation is below.
+
+```{r data_code, ref.label='loadData', echo=TRUE}
+
+```
+
+The code for creating the plot is below.
+
+```{r plotting_code, ref.label='plotting', echo=TRUE, eval=FALSE}
+
+```
+
+
 
 
